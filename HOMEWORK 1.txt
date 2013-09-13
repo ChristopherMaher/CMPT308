@@ -1,3 +1,46 @@
 -- HOMEWORK 1
 -- CHRIS MAHER
-So i edited this
+--1 List of all data for all the customers
+Select *
+From Customers
+--2 List the name and city of agents named Smith
+Select name,city
+From Agents
+Where (name='Smith')
+--3 List pid,name, and quantity of products costing more than US$1.25
+Select pid, name, quantity
+From Products
+Where (priceUSD>1.25)
+--4 List the ordno and aid of all orders
+Select ordno, aid
+From Orders
+--5 List the names and cities of customers not in Dallas
+Select name,city
+From Customers
+Where (city!='Dallas')
+--6 List the names of agents in New York or Newark
+Select name
+From Agents
+Where (city='New York') or
+	(city='Newark')
+--7 List all data for products not in New York or Newark that cost US$1 or less
+Select *
+From Products
+Where (city!='New York') and
+	(city!='Newark') and
+	(priceUSD <= 1)
+--8 List all data for orders in January or March
+Select *
+From Orders
+Where (mon='jan') or
+	(mon ='mar') 
+--9 Lust of all data for orders in February less than US$100
+Select *
+From Orders
+Where (mon='feb') and
+     (dollars < 100) 
+
+--10 List of all orders from the customer whose cid is c005
+Select *
+From Orders
+Where (cid='c005') 
