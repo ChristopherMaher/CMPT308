@@ -32,7 +32,7 @@ where cid <> all(\
 		From Orders\
 		where aid = 'a03');\
 \
---4 The cid and names of customers who ordered both product p01 and p07\
+--4 The cid and names of customers who ordered both product p01 and p07.\
 \
 select distinct cid, name\
 from customers\
