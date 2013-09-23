@@ -1,0 +1,73 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf390
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 --1 Cities of agents booking an order for customer c002\
+\
+Select city\
+from Agents\
+where aid in(\
+	     select aid\
+	     from orders\
+	     where cid='c002');\
+--2 Get the Pids of products ordered through any agent who makes at least one order for a customer --in Kyoto.\
+\
+Select pid\
+From orders\
+where aid in(\
+	Select aid\
+	From orders\
+	where cid in(\
+		Select cid\
+		From customers\
+		where city='Kyoto' ));\
+--3 cid and names of customers who never placed an order through agent a03 \
+\
+Select Distinct cid, name\
+From Customers\
+where cid <> all(\
+		Select cid\
+		From Orders\
+		where aid = 'a03');\
+\
+--4 The cid and names of customers who ordered both product p01 and p07\
+\
+select distinct cid, name\
+from customers\
+where cid  in(\
+	select cid \
+	from orders\
+	where pid = 'p01' and cid in (\
+		select cid\
+		from orders\
+		where pid = 'p07') );\
+--5 The pids of products ordered by any customer who ever placed an order through agent a03.\
+\
+select pid\
+from orders\
+where cid in(\
+	select cid\
+	from orders\
+	where aid = 'a03');\
+\
+-- 6 The names and	discounts of	all customers who place orders through	agents in Dallas or Duluth.\
+\
+select distinct name, discount\
+from customers\
+where cid in(\
+	select cid\
+	from orders\
+	where aid in(\
+		select aid\
+		from Agents\
+		where city = 'Dallas' or city = 'Duluth'));\
+-- 7 All customers who have the same discount as that of any customer in Dallas or Kyoto.\
+\
+select *\
+from customers\
+where discount in( \
+		select discount\
+		from customers\
+		where city = 'Dallas' or city='Kyoto');}
